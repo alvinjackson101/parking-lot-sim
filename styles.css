@@ -1,0 +1,39 @@
+.jumbotron{
+
+    color:white;
+    background-image: url("main-pic-bg.jpg");
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.btn{
+
+    background-color: #b75555;
+    border: #af4a4a;
+
+}
+
+.btn:hover{
+
+    background-color: #af4a4a;
+}
+
+#logo{
+
+    display: block;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    margin-right: auto;
+    margin-left: auto;
+    height: 150px;
+    width: auto;
+    background-position: center;
+}
+
+.header{
+
+    display: block;
+    text-align: center;
+}
