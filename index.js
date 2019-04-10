@@ -1,25 +1,20 @@
 
-//random car
-//var arrCar = [ "Porsche" , "Lamborghini" , "Ferrari" , "Tesla" , "BMW" ];
-//var randomCar= arrCar[Math.floor(Math.random()*arrCar.length)];
-//document.getElementById("parkingspot2").innerHTML = randomCar;
+const maxParkedTime = 5000;
+const CarFactoryLimit = 12;
 
-//random year 
-//var arrYear = [ "2019" , "2000" , "2017" , "2005" , "1995" , "1980"];
-//var randomYear= arrYear[Math.floor(Math.random()*arrYear.length)];
-//document.getElementById("parkingspot1").innerHTML = randomYear;
+const Dates = [ "2019" , "2000" , "2017" , "2005" , "1995" , "1980"];
+const carPlates = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "1", "2", "3", "4", "5", "6"];
+const carModels = [ "Porsche" , "Lamborghini" , "Ferrari" , "Tesla" , "BMW" ];
 
-//random plate
-//var arrPlate = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "1", "2", "3", "4", "5", "6"];
-//var randomPlate= arrPlate[Math.floor(Math.random()*arrPlate.length)];
-//document.getElementById("parkingspot3").innerHTML = randomPlate;
+const MaxParkingSpaces = 10;
+const parkingLot = [];
 
-function Car(make, model, year, time){
+function Car(){
 
-    this.make = make();
-    this.model = model;
-    this.year = year;
-    this.time = time;
+    this.plates = carPlates[Math.floor(Math.random() * carPlates.length)];
+    this.make = carModels[Math.floor(Math.random() * carModels.length)];
+    this.year = Dates[Math.floor(Math.random() * Dates.length)];
+    this.time = Math.floor(Math.random() * maxParkedTime);
     this.parked = false;
 
     this.park = function(){
@@ -28,7 +23,7 @@ function Car(make, model, year, time){
             e.leave();
         
         },
-        time,
+        this.time,
         this);
 
         console.log("parked!");
@@ -42,6 +37,20 @@ function Car(make, model, year, time){
         }
     }
 
-    let car = new Car("ford", "f150", "2000", "5000");
-    
+    return this;
+}
+
+function carFactory() {
+    let newCars = [];
+
+    for(let i = 0; i < CarFactoryLimit; i++) {
+       newCars.push(new Car())
     }
+
+    return newCars;
+}
+
+
+const cars = carFactory();
+
+console.log(cars)
