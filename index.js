@@ -1,11 +1,11 @@
-const maxParkedTime = 5000;
+const maxParkedTime = 5000; //parking lot time
 const CarFactoryLimit = 100;
 
 const Dates = [ "2019" , "2000" , "2017" , "2005" , "1995" , "1980"]; //car random dates
 const carPlates = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "1", "2", "3", "4", "5", "6"]; //car random plates
 const carModels = [ "Porsche" , "Lamborghini" , "Ferrari" , "Tesla" , "BMW" ]; //random car models
 
-const MaxParkingSpaces = 10;
+const MaxParkingSpaces = 10; // max parking lot spaces
 const parkingLot = [];
 
 const carsWaiting = [];
