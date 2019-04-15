@@ -1,8 +1,8 @@
 const maxParkedTime = 5000; //parking lot time
-const CarFactoryLimit = 100;
+const CarFactoryLimit = 20;
 
 const Dates = [ "2019" , "2000" , "2017" , "2005" , "1995" , "1980"]; //car random dates
-const carPlates = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "1", "2", "3", "4", "5", "6"]; //car random plates
+
 const carModels = [ "Porsche" , "Lamborghini" , "Ferrari" , "Tesla" , "BMW" ]; //random car models
 
 const MaxParkingSpaces = 10; // max parking lot spaces
@@ -12,7 +12,7 @@ const carsWaiting = [];
 const carsLeft = [];
 
 function Car(){ 
-    this.plates = carPlates[Math.floor(Math.random() * carPlates.length)];
+    this.plates = getRandomPlate();
     this.make = carModels[Math.floor(Math.random() * carModels.length)];
     this.year = Dates[Math.floor(Math.random() * Dates.length)];
     this.time = Math.floor(Math.random() * maxParkedTime);
@@ -27,15 +27,30 @@ function Car(){
 
     this.leave = function(car) {
         console.log("Car is Leaving!", car)
-        this.parked = false;
-        carsLeft.push(car);
-        
-        parkCar();
+        let carPosition = parkingLot.map(function(car) { // Locating car in parkingLot by cars array index returning value
+            var parkedCar = parkingLot.indexOf(car);
+            return parkedCar;
+        });
+        let carLeaving = parkingLot.splice(carPosition, 1)[0]; // removing car from parkingLot by index
+        carsLeft.push(carLeaving); // Pushing that car to the carsLeft array
+
+        if(carsWaiting.length > 0){
+            parkCars();
+        }
     }
 }
 
-console.log("leaving(car)");
 
+function getRandomPlate(){//gets 6 digit random plates
+    const carPlates = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'; //car random plates
+    let plateNumber = '';
+
+    for(var i = 0; i < 6; i++){
+        plateNumber += carPlates[Math.floor(Math.random() * carPlates.length)]
+
+    }
+    return plateNumber;
+}
 function carFactory() {
     for(let i = 0; i < CarFactoryLimit; i++) {
        carsWaiting.push(new Car())
@@ -58,11 +73,11 @@ function carFactory() {
    // }
 
 
-function parkCar() {
-    console.log(carsWaiting)
+function parkCars() {
     if( parkingLot.length <= MaxParkingSpaces){
-        for(var i = 0; i < MaxParkingSpaces; i++){
+        for(var i = 0; i < (MaxParkingSpaces - parkingLot.length); i++){
             let car = carsWaiting.pop();
+            console.log("Pushing car to park function!", car)
             car.park(car);
         }
     } else {
@@ -70,8 +85,6 @@ function parkCar() {
     }
 }
 
-console.log(parkingLot);
 
 const cars = carFactory();
-
-parkCar();
+parkCars();
